@@ -9,18 +9,20 @@ class PayView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.background,
       body: Center(
+        
         child: Padding(
           padding: EdgeInsets.all(30), //TODO make it dynamic
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               ReusableCard(
-                color: Colors.orange.shade200, //TODO parse from theme
+                color: Theme.of(context).colorScheme.secondary, //TODO parse from theme
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 0),
                   child: BarcodeWidget(
-                    color: Colors.black, //TODO parse from theme
+                    color: Theme.of(context).colorScheme.tertiary,
                     barcode: Barcode.qrCode(), // Barcode type and settings
                     data:
                         'https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley', // Content // Надо добавиить ссылку на запрос
@@ -35,6 +37,7 @@ class PayView extends StatelessWidget {
               TextField(
                 decoration: const InputDecoration(
                     labelText: "Введите сумму", //TODO localization
+                    // focusColor: Theme.of(context).colorScheme.primary, 
                     border: OutlineInputBorder(
                         borderSide: BorderSide(width: 10.0),
                         borderRadius: BorderRadius.all(Radius.circular(20.0)))),

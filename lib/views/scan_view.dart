@@ -31,10 +31,11 @@ class _ScanViewState extends State<ScanView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.background,
       body: Column(
         children: <Widget>[
           Expanded(flex: 4, child: _buildQrView(context)),
-          Expanded(
+          Expanded( //Needs redesign
             flex: 1,
             child: FittedBox(
               fit: BoxFit.contain,
@@ -132,7 +133,7 @@ class _ScanViewState extends State<ScanView> {
       key: qrKey,
       onQRViewCreated: _onQRViewCreated,
       overlay: QrScannerOverlayShape(
-          borderColor: Colors.red,
+          borderColor: Theme.of(context).colorScheme.secondary,
           borderRadius: 10,
           borderLength: 30,
           borderWidth: 10,
