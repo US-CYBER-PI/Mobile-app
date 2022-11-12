@@ -40,6 +40,7 @@ dependencies:
   barcode_widget: ^2.0.3
   get: ^4.6.5
   qr_code_scanner: ^1.0.1
+  flutter_multi_formatter: ^2.9.4
 
 dev_dependencies:
   flutter_test:
