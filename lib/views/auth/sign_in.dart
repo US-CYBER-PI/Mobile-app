@@ -19,7 +19,11 @@ class _SignInState extends State<SignIn> {
         child: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Column(children: [
-            Text('QIWI Mobile'),
+            Spacer(),
+            Text(
+              'QIWI Mobile',
+              style: TextStyle(fontSize: 28),
+            ),
             const TextFieldPhone(),
             SizedBox(height: 10),
             const TextFiledPassword(),
@@ -28,7 +32,10 @@ class _SignInState extends State<SignIn> {
                 Get.to(SignUp());
               },
               child: Text('Войти в систему'),
-            )
+            ),
+            Spacer(
+              flex: 2,
+            ),
           ]),
         ),
       ),
