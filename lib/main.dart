@@ -17,7 +17,10 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData.light().copyWith(
+        primaryColor: Colors.white,
+        textSelectionTheme: const TextSelectionThemeData(cursorColor: ColorsCustom.tertiaryLigth),
         colorScheme: ThemeData.light().colorScheme.copyWith(
             primary: ColorsCustom.primaryLigth,
             secondary: ColorsCustom.secondary,
@@ -34,12 +37,14 @@ class App extends StatelessWidget {
       ),
       themeMode: ThemeMode.dark,
       darkTheme: ThemeData.dark().copyWith(
+        textSelectionTheme: const TextSelectionThemeData(
+            cursorColor: ColorsCustom.tertiaryDark),
         colorScheme: ThemeData.dark().colorScheme.copyWith(
-              primary: ColorsCustom.primaryDark,
-              secondary: ColorsCustom.secondary,
-              background: ColorsCustom.backgroundDark,
-              tertiary: ColorsCustom.tertiaryDark,
-              surface: ColorsCustom.surfaceDark,
+            // primary: ColorsCustom.primaryDark,
+            // secondary: ColorsCustom.secondary,
+            // background: ColorsCustom.backgroundDark,
+            // tertiary: ColorsCustom.tertiaryDark,
+            // surface: ColorsCustom.surfaceDark,
             ),
       ),
       home: SignIn(),

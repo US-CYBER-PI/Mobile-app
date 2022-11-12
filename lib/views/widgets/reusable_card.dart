@@ -20,6 +20,7 @@ class ReusableCard extends StatelessWidget {
           ),
           child: child,
         ),
+      
     );
   }
 }

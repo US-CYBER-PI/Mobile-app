@@ -21,7 +21,7 @@ class _SignInState extends State<SignIn> {
             Text('QIWI Mobile'),
             TextFieldPhone(),
             TextFormField(
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 contentPadding: EdgeInsets.zero,
               ),

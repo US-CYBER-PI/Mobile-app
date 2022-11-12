@@ -1,24 +1,32 @@
 import 'package:barcode_widget/barcode_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:qiwi_mobile_app/views/auth/reusable_card.dart';
 
-class PayView extends StatelessWidget {
+import 'package:qiwi_mobile_app/views/widgets/reusable_card.dart';
+
+
+class PayView extends StatefulWidget {
   const PayView({Key? key}) : super(key: key);
 
+  @override
+  State<PayView> createState() => _PayViewState();
+}
+
+class _PayViewState extends State<PayView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       body: Center(
-        
         child: Padding(
           padding: EdgeInsets.all(30), //TODO make it dynamic
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               ReusableCard(
-                color: Theme.of(context).colorScheme.secondary, //TODO parse from theme
+                color: Theme.of(context)
+                    .colorScheme
+                    .secondary, //TODO parse from theme
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 0),
                   child: BarcodeWidget(
@@ -35,12 +43,39 @@ class PayView extends StatelessWidget {
                 height: 20,
               ),
               TextField(
-                decoration: const InputDecoration(
-                    labelText: "Введите сумму", //TODO localization
-                    // focusColor: Theme.of(context).colorScheme.primary, 
-                    border: OutlineInputBorder(
-                        borderSide: BorderSide(width: 10.0),
-                        borderRadius: BorderRadius.all(Radius.circular(20.0)))),
+                decoration: InputDecoration(
+                  labelText: "Введите сумму", //TODO localization
+                  labelStyle: Theme.of(context).textTheme.button,
+                  
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      width: 10.0,
+                      color: Theme.of(context).colorScheme.tertiary,
+                    ),
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(20.0),
+                    ),
+                  ),
+                  
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Theme.of(context).colorScheme.tertiary,
+                    ),
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(20.0),
+                    ),
+                  ),
+
+                  errorBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      width: 10.0,
+                      color: Theme.of(context).colorScheme.error,
+                    ),
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(20.0),
+                    ),
+                  ),
+                ),
                 keyboardType: TextInputType.number,
                 inputFormatters: <TextInputFormatter>[
                   FilteringTextInputFormatter.digitsOnly
