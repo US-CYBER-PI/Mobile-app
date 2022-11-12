@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ionicons/ionicons.dart';
 import 'package:qiwi_mobile_app/common/colors.dart';
 import 'package:qiwi_mobile_app/views/auth/sign_in.dart';
-import 'package:qiwi_mobile_app/views/pay_view.dart';
-import 'package:qiwi_mobile_app/views/profile_view.dart';
-import 'package:qiwi_mobile_app/views/scan_view.dart';
 
 void main() {
   runApp(App());
