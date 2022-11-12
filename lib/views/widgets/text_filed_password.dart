@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
 class TextFiledPassword extends StatefulWidget {
-  const TextFiledPassword({
+  TextFiledPassword(
+    this.passwordController, {
     Key? key,
   }) : super(key: key);
-
+  TextEditingController passwordController;
   @override
   State<TextFiledPassword> createState() => _TextFiledPasswordState();
 }
@@ -15,6 +16,7 @@ class _TextFiledPasswordState extends State<TextFiledPassword> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: widget.passwordController,
       obscureText: isCheck,
       decoration: InputDecoration(
         isDense: true,
