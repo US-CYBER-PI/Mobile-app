@@ -59,7 +59,7 @@ class _SignInState extends State<SignIn> {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      Get.to(HomePage());
+                      Get.to(SignUp());
                     },
                     child: const Text('Регистрация в системе'),
                   ),
