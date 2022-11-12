@@ -1,7 +1,7 @@
 import 'package:barcode_widget/barcode_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:qiwi_mobile_app/utilis/reusable_card.dart';
+import 'package:qiwi_mobile_app/views/widgets/reusable_card.dart';
 
 class PayView extends StatefulWidget {
   const PayView({Key? key}) : super(key: key);
