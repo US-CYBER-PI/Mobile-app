@@ -3,13 +3,17 @@ import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
 import 'package:qiwi_mobile_app/common/colors.dart';
 
 class TextFieldPhone extends StatelessWidget {
-  const TextFieldPhone({
+  const TextFieldPhone(
+    this.loginController, {
     Key? key,
   }) : super(key: key);
+
+  final TextEditingController loginController;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: loginController,
       keyboardType: TextInputType.phone,
       inputFormatters: [
         MaskedInputFormatter('(###) ###-##-##'),
