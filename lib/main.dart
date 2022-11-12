@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:qiwi_mobile_app/app_router.dart';
 import 'package:qiwi_mobile_app/common/colors.dart';
-import 'package:qiwi_mobile_app/common/url_page.dart';
+import 'package:qiwi_mobile_app/views/auth/sign_in.dart';
 import 'package:qiwi_mobile_app/views/pay_view.dart';
 import 'package:qiwi_mobile_app/views/profile_view.dart';
 import 'package:qiwi_mobile_app/views/scan_view.dart';
@@ -14,8 +13,6 @@ void main() {
 
 class App extends StatelessWidget {
   App({super.key});
-
-  AppRouter router = AppRouter();
 
   @override
   Widget build(BuildContext context) {
@@ -38,15 +35,14 @@ class App extends StatelessWidget {
       themeMode: ThemeMode.dark,
       darkTheme: ThemeData.dark().copyWith(
         colorScheme: ThemeData.dark().colorScheme.copyWith(
-            // primary: ColorsCustom.primaryDark,
-            // secondary: ColorsCustom.secondary,
-            // background: ColorsCustom.backgroundDark,
-            // tertiary: ColorsCustom.tertiaryDark,
-            // surface: ColorsCustom.surfaceDark,
+              primary: ColorsCustom.primaryDark,
+              secondary: ColorsCustom.secondary,
+              background: ColorsCustom.backgroundDark,
+              tertiary: ColorsCustom.tertiaryDark,
+              surface: ColorsCustom.surfaceDark,
             ),
       ),
-      onGenerateRoute: router.onGenerateRoute,
-      initialRoute: UrlPage.singIn,
+      home: SignIn(),
     );
   }
 }

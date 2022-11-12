@@ -9,29 +9,23 @@ class TextFieldPhone extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
-      decoration: BoxDecoration(
+    return TextFormField(
+      keyboardType: TextInputType.phone,
+      inputFormatters: [MaskedInputFormatter('(###) ###-##-##')],
+      decoration: InputDecoration(
+        focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: ColorsCustom.secondary)),
-      child: Row(
-        children: [
-          const Text(
-            '+7',
-            style: TextStyle(fontSize: 16),
-          ),
-          const SizedBox(width: 2),
-          Expanded(
-            child: TextFormField(
-              keyboardType: TextInputType.phone,
-              inputFormatters: [MaskedInputFormatter('(###) ###-##-##')],
-              decoration: const InputDecoration(
-                hintText: '(999) 999-99-99',
-                border: InputBorder.none,
-              ),
-            ),
-          ),
-        ],
+          borderSide:
+              BorderSide(color: Theme.of(context).colorScheme.secondary),
+        ),
+        isDense: true,
+        prefixIcon: const Padding(
+          padding: EdgeInsets.all(8.0),
+          child: Text("+7"),
+        ),
+        prefixIconConstraints: const BoxConstraints(minWidth: 0, minHeight: 0),
+        hintText: '(999) 999-99-99',
+        border: const OutlineInputBorder(),
       ),
     );
   }
