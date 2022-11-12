@@ -40,11 +40,11 @@ class App extends StatelessWidget {
         textSelectionTheme: const TextSelectionThemeData(
             cursorColor: ColorsCustom.tertiaryDark),
         colorScheme: ThemeData.dark().colorScheme.copyWith(
-            // primary: ColorsCustom.primaryDark,
-            // secondary: ColorsCustom.secondary,
-            // background: ColorsCustom.backgroundDark,
-            // tertiary: ColorsCustom.tertiaryDark,
-            // surface: ColorsCustom.surfaceDark,
+            primary: ColorsCustom.primaryDark,
+            secondary: ColorsCustom.secondary,
+            background: ColorsCustom.backgroundDark,
+            tertiary: ColorsCustom.tertiaryDark,
+            surface: ColorsCustom.surfaceDark,
             ),
       ),
       home: SignIn(),
