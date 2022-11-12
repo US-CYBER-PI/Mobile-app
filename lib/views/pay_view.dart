@@ -1,9 +1,11 @@
 import 'package:barcode_widget/barcode_widget.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:qiwi_mobile_app/controllers/pay_view_controller.dart';
+import 'package:qiwi_mobile_app/locator_service.dart';
 
 import 'package:qiwi_mobile_app/views/widgets/reusable_card.dart';
 
@@ -15,10 +17,11 @@ class PayView extends StatefulWidget {
 }
 
 class _PayViewState extends State<PayView> {
+  ResponseCodes responseCodes = ResponseCodes.error;
+  final c = Get.put(PayViewController(ls<Dio>));
+
   @override
   Widget build(BuildContext context) {
-    final c = Get.put(PayViewController());
-    ResponseCodes responseCodes = ResponseCodes.error;
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       body: Center(
