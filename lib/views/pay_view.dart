@@ -54,6 +54,7 @@ class _PayViewState extends State<PayView> {
                       Radius.circular(20.0),
                     ),
                   ),
+                  
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(
                       color: Theme.of(context).colorScheme.tertiary,
