@@ -11,7 +11,9 @@ class TextFieldPhone extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       keyboardType: TextInputType.phone,
-      inputFormatters: [MaskedInputFormatter('(###) ###-##-##')],
+      inputFormatters: [
+        MaskedInputFormatter('(###) ###-##-##'),
+      ],
       decoration: InputDecoration(
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
@@ -19,9 +21,12 @@ class TextFieldPhone extends StatelessWidget {
               BorderSide(color: Theme.of(context).colorScheme.secondary),
         ),
         isDense: true,
-        prefixIcon: const Padding(
-          padding: EdgeInsets.all(8.0),
-          child: Text("+7"),
+        prefixIcon: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            "+7",
+            style: TextStyle(color: Theme.of(context).colorScheme.tertiary),
+          ),
         ),
         prefixIconConstraints: const BoxConstraints(minWidth: 0, minHeight: 0),
         hintText: '(999) 999-99-99',
