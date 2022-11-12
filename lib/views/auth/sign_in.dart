@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:qiwi_mobile_app/views/auth/sign_up.dart';
+import 'package:qiwi_mobile_app/views/widgets/text_filed_password.dart';
 import 'package:qiwi_mobile_app/views/widgets/text_filed_phone.dart';
 
 class SignIn extends StatefulWidget {
@@ -19,13 +20,9 @@ class _SignInState extends State<SignIn> {
           padding: const EdgeInsets.all(20.0),
           child: Column(children: [
             Text('QIWI Mobile'),
-            TextFieldPhone(),
-            TextFormField(
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                contentPadding: EdgeInsets.zero,
-              ),
-            ),
+            const TextFieldPhone(),
+            SizedBox(height: 10),
+            const TextFiledPassword(),
             ElevatedButton(
               onPressed: () {
                 Get.to(SignUp());
