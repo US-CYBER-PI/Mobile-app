@@ -27,7 +27,7 @@ class _SignInState extends State<SignIn> {
           child: BlocConsumer<AuthCubit, AuthState>(
             listener: (context, state) {
               if (state is AuthError) {
-                Get.showSnackbar(GetSnackBar(title: state.error));
+                Get.snackbar('Ошибка', state.error);
               }
               if (state is AuthSucces) {
                 Get.off(HomePage());
