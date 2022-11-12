@@ -8,25 +8,45 @@ import 'package:qiwi_mobile_app/views/scan_view.dart';
 void main() {
   runApp(GetMaterialApp(
     theme: ThemeData.light().copyWith(
+      textSelectionTheme: TextSelectionThemeData(cursorColor: Color.fromRGBO(0, 0, 0, 1.0), selectionHandleColor: Color.fromRGBO(255, 140, 0, 1.0)),
+      textTheme: const TextTheme(
+        headline1: TextStyle(
+            fontSize: 40.0,
+            fontWeight: FontWeight.bold,
+            color: Color.fromRGBO(0, 0, 0, 1.0)),
+        headline6:
+            TextStyle(fontSize: 25.0, color: Color.fromRGBO(0, 0, 0, 1.0)),
+        bodyText2: TextStyle(
+          fontSize: 14.0,
+          color: Color.fromRGBO(0, 0, 0, 1.0),
+        ),
+        subtitle1: TextStyle(
+            fontSize: 12.0,
+            decorationColor: Colors.black,
+            color: Color.fromRGBO(0, 0, 0, 1.0)),
+        button: TextStyle(
+          fontSize: 14.0,
+          color: Color.fromRGBO(0, 0, 0, 1.0),
+        ),
+      ),
       colorScheme: ThemeData.light().colorScheme.copyWith(
-            primary: Colors.white,
-            secondary: Color.fromRGBO(255, 140, 0, 1.0),
-            background: Color.fromRGBO(245, 245, 245, 1.0),
-            tertiary: Color.fromRGBO(0, 0, 0, 1.0),
-            surface: Colors.grey.shade400
-            // surface: Color.fromRGBO(153, 153, 153, 1.0)
+          primary: Colors.white,
+          secondary: Color.fromRGBO(255, 140, 0, 1.0),
+          background: Color.fromRGBO(245, 245, 245, 1.0),
+          tertiary: Color.fromRGBO(0, 0, 0, 1.0),
+          surface: Colors.grey.shade400,
+          error: Color.fromRGBO(208, 2, 27, 1.0),
+          // surface: Color.fromRGBO(153, 153, 153, 1.0)
           ),
     ),
     darkTheme: ThemeData.dark().copyWith(
       colorScheme: ThemeData.dark().colorScheme.copyWith(
-            primary: Color.fromRGBO(0, 0, 0, 0.2),
-            secondary: Color.fromRGBO(255, 140, 0, 1.0),
-            background: Color.fromRGBO(45, 53, 64, 1.0),
-            tertiary: Colors.white,
-            surface: Color.fromRGBO(255, 255, 255, 0.3)
-          ),
+          primary: Color.fromRGBO(0, 0, 0, 0.2),
+          secondary: Color.fromRGBO(255, 140, 0, 1.0),
+          background: Color.fromRGBO(45, 53, 64, 1.0),
+          tertiary: Colors.white,
+          surface: Color.fromRGBO(255, 255, 255, 0.3)),
     ),
-    
     home: HomePage(),
   ));
 }
