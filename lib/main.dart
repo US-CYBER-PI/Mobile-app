@@ -1,103 +1,51 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:qiwi_mobile_app/app_router.dart';
+import 'package:qiwi_mobile_app/common/colors.dart';
+import 'package:qiwi_mobile_app/common/url_page.dart';
 import 'package:qiwi_mobile_app/views/pay_view.dart';
 import 'package:qiwi_mobile_app/views/profile_view.dart';
 import 'package:qiwi_mobile_app/views/scan_view.dart';
 
 void main() {
-  runApp(GetMaterialApp(
-    theme: ThemeData.light().copyWith(
-      textSelectionTheme: TextSelectionThemeData(cursorColor: Color.fromRGBO(0, 0, 0, 1.0), selectionHandleColor: Color.fromRGBO(255, 140, 0, 1.0)),
-      textTheme: const TextTheme(
-        headline1: TextStyle(
-            fontSize: 40.0,
-            fontWeight: FontWeight.bold,
-            color: Color.fromRGBO(0, 0, 0, 1.0)),
-        headline6:
-            TextStyle(fontSize: 25.0, color: Color.fromRGBO(0, 0, 0, 1.0)),
-        bodyText2: TextStyle(
-          fontSize: 14.0,
-          color: Color.fromRGBO(0, 0, 0, 1.0),
-        ),
-        subtitle1: TextStyle(
-            fontSize: 12.0,
-            decorationColor: Colors.black,
-            color: Color.fromRGBO(0, 0, 0, 1.0)),
-        button: TextStyle(
-          fontSize: 14.0,
-          color: Color.fromRGBO(0, 0, 0, 1.0),
-        ),
-      ),
-      colorScheme: ThemeData.light().colorScheme.copyWith(
-          primary: Colors.white,
-          secondary: Color.fromRGBO(255, 140, 0, 1.0),
-          background: Color.fromRGBO(245, 245, 245, 1.0),
-          tertiary: Color.fromRGBO(0, 0, 0, 1.0),
-          surface: Colors.grey.shade400,
-          error: Color.fromRGBO(208, 2, 27, 1.0),
-          // surface: Color.fromRGBO(153, 153, 153, 1.0)
-          ),
-    ),
-    darkTheme: ThemeData.dark().copyWith(
-      colorScheme: ThemeData.dark().colorScheme.copyWith(
-          primary: Color.fromRGBO(0, 0, 0, 0.2),
-          secondary: Color.fromRGBO(255, 140, 0, 1.0),
-          background: Color.fromRGBO(45, 53, 64, 1.0),
-          tertiary: Colors.white,
-          surface: Color.fromRGBO(255, 255, 255, 0.3)),
-    ),
-    home: HomePage(),
-  ));
+  runApp(App());
 }
 
-class HomePage extends StatefulWidget {
-  @override
-  _HomePageState createState() => _HomePageState();
-}
+class App extends StatelessWidget {
+  App({super.key});
 
-class _HomePageState extends State<HomePage> {
-  int _currentIndex = 0;
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.w500);
-  final List<Widget> _children = [
-    const PayView(),
-    const ScanView(),
-    const ProfileView(),
-  ];
-
-  void onTabTapped(int index) {
-    setState(() {
-      _currentIndex = index;
-    });
-  }
+  AppRouter router = AppRouter();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(child: _children[_currentIndex]),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        selectedItemColor: Theme.of(context).colorScheme.secondary,
-        unselectedItemColor: Theme.of(context).colorScheme.surface,
-        currentIndex: _currentIndex,
-        onTap: onTabTapped,
-        // ignore: prefer_const_literals_to_create_immutables
-        items: [
-          const BottomNavigationBarItem(
-            icon: Icon(Ionicons.wallet),
-            label: 'Главная',
+    return GetMaterialApp(
+      theme: ThemeData.light().copyWith(
+        colorScheme: ThemeData.light().colorScheme.copyWith(
+            primary: ColorsCustom.primaryLigth,
+            secondary: ColorsCustom.secondary,
+            background: ColorsCustom.backgroundLigth,
+            tertiary: ColorsCustom.tertiaryLigth,
+            surface: ColorsCustom.surfaceLigth
+            // surface: Color.fromRGBO(153, 153, 153, 1.0)
+            ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: ColorsCustom.secondary,
           ),
-          const BottomNavigationBarItem(
-            icon: Icon(Ionicons.camera),
-            label: 'Оплата',
-          ),
-          const BottomNavigationBarItem(
-            icon: Icon(Ionicons.person),
-            label: 'Профиль',
-          ),
-        ],
+        ),
       ),
+      darkTheme: ThemeData.dark().copyWith(
+        colorScheme: ThemeData.dark().colorScheme.copyWith(
+              primary: ColorsCustom.primaryDark,
+              secondary: ColorsCustom.secondary,
+              background: ColorsCustom.backgroundDark,
+              tertiary: ColorsCustom.tertiaryDark,
+              surface: ColorsCustom.surfaceDark,
+            ),
+      ),
+      onGenerateRoute: router.onGenerateRoute,
+      initialRoute: UrlPage.singIn,
     );
   }
 }
