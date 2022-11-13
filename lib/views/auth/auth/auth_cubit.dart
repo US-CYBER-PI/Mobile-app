@@ -51,7 +51,7 @@ class AuthCubit extends Cubit<AuthState> {
     final data = SecureStorageSetting.toFromMap(await _secureStorage.readAll());
     if (data.token == null) return;
 
-    if (data.token != null || data.token == '') {
+    if (data.token != '') {
       final dataNow = DateTime.now();
       if ((dataNow.day - data.dateTime.day) >= 5) {
         _auth.refreshToken(data.token);
@@ -61,6 +61,5 @@ class AuthCubit extends Cubit<AuthState> {
       );
     }
 
-    ///todo сравнение даты если то окончания токена остается 5 дней создаем новый токен
   }
 }
