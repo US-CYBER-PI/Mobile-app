@@ -8,10 +8,10 @@ import 'package:qiwi_mobile_app/domain/model/token_model.dart';
 import 'package:qiwi_mobile_app/domain/repository/auth_repository.dart';
 
 class Auth implements AuthRepository {
-  final Dio dio;
-  final FlutterSecureStorage securedStorage;
+  final Dio _dio;
+  final FlutterSecureStorage _securedStorage;
 
-  Auth(this.dio, this.securedStorage);
+  Auth(this._dio, this._securedStorage);
 
   @override
   Future<Either<String, bool>> signUp(String login, String password) async {
@@ -24,20 +24,20 @@ class Auth implements AuthRepository {
       var fromData = FormData.fromMap(
         AuthModel(login: login, password: password).toMap(),
       );
-      var result = await dio.post(
+      var result = await _dio.post(
         'auth/reg',
         data: fromData,
       );
 
       if (result.statusCode == 200) {
-        result = await dio.post(
+        result = await _dio.post(
           'auth/refresh_token',
           data: FormData.fromMap(
               AuthModel(login: login, password: password).toMap()),
         );
 
         if (result.statusCode == 200) {
-          securedStorage.write(key: 'token', value: result.data['token']);
+          _securedStorage.write(key: 'token', value: result.data['token']);
         }
       } else {
         return const Left('Регистрация провалилась');
@@ -64,14 +64,14 @@ class Auth implements AuthRepository {
       var fromData = FormData.fromMap(
         AuthModel(login: login, password: password).toMap(),
       );
-      var result = await dio.post(
+      var result = await _dio.post(
         'auth/refresh_token',
         data: FormData.fromMap(
             AuthModel(login: login, password: password).toMap()),
       );
 
       if (result.statusCode == 200) {
-        securedStorage.write(key: 'token', value: result.data['token']);
+        _securedStorage.write(key: 'token', value: result.data['token']);
       }
 
       return const Right(true);
@@ -87,6 +87,27 @@ class Auth implements AuthRepository {
       }
       print(error);
       return Left(error.message);
+    }
+  }
+
+  @override
+  Future<bool> logout() async {
+    try {
+      final token = await _securedStorage.read(key: 'token');
+      print(token);
+      // final result = await _dio.post(
+      //   'del/refresh_token',
+      //   options: Options(headers: {'authorization': 'Bearer $token'}),
+      // );
+
+      // if (result.statusCode == 200) {
+      _securedStorage.deleteAll();
+      return true;
+      // }
+      // return false;
+    } on DioError catch (error) {
+      print(error.error);
+      return false;
     }
   }
 }
