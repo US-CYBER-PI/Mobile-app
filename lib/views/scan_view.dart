@@ -3,7 +3,9 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:qiwi_mobile_app/controllers/scan_controller.dart';
 import 'package:qiwi_mobile_app/views/pay_view.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
@@ -16,7 +18,9 @@ class ScanView extends StatefulWidget {
 
 class _ScanViewState extends State<ScanView> {
   Barcode? result;
-  QRViewController? controller;
+  bool transctionStatus = false;
+  QRViewController? qRController;
+  ScanController scanController = ScanController();
 
   TextEditingController txtController = TextEditingController();
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
@@ -27,9 +31,9 @@ class _ScanViewState extends State<ScanView> {
   void reassemble() {
     super.reassemble();
     if (Platform.isAndroid) {
-      controller!.pauseCamera();
+      qRController!.pauseCamera();
     }
-    controller!.resumeCamera();
+    qRController!.resumeCamera();
   }
 
   @override
@@ -61,7 +65,42 @@ class _ScanViewState extends State<ScanView> {
               padding: const EdgeInsets.symmetric(vertical: 70),
               child: RawMaterialButton(
                 onPressed: () async {
-                  await controller?.toggleFlash();
+                  if (txtController.text != '') {
+                    Get.defaultDialog(
+                      title: "Внимение!",
+                      content: Text("Введите количество денег для списания"),
+                    );
+                  }
+                  if (result != null && txtController.text != '') {
+                    await qRController?.stopCamera();
+                    scanController
+                        .makeTransaction(
+                            '${result!.code}', int.parse(txtController.text))
+                        .toString();
+                    setState(() {});
+                    sleep(Duration(seconds: 3));
+                  }
+                  await qRController?.resumeCamera();
+                },
+                elevation: 2.0,
+                fillColor: Theme.of(context).colorScheme.secondary,
+                padding: const EdgeInsets.all(15.0),
+                shape: const CircleBorder(),
+                child: const Icon(
+                  (Ionicons.qr_code_outline),
+                  color: Colors.white,
+                  size: 35.0,
+                ),
+              ),
+            ),
+          ),
+          Align(
+            alignment: Alignment.bottomLeft,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 70),
+              child: RawMaterialButton(
+                onPressed: () async {
+                  await qRController?.toggleFlash();
                   setState(() {});
                 },
                 elevation: 2.0,
@@ -104,7 +143,7 @@ class _ScanViewState extends State<ScanView> {
 
   void _onQRViewCreated(QRViewController controller) {
     setState(() {
-      this.controller = controller;
+      this.qRController = controller;
     });
     controller.scannedDataStream.listen((scanData) {
       setState(() {
@@ -124,7 +163,7 @@ class _ScanViewState extends State<ScanView> {
 
   @override
   void dispose() {
-    controller?.dispose();
+    qRController?.dispose();
     super.dispose();
   }
 }

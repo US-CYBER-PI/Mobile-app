@@ -139,21 +139,21 @@ class CustomTextField extends StatelessWidget {
           labelText: labelText ?? "Введите сумму", //TODO localization
           labelStyle: Theme.of(context).textTheme.button,
 
-          border: OutlineInputBorder(
+          border: const OutlineInputBorder(
             borderSide: BorderSide(
               width: 10.0,
-              color: Theme.of(context).colorScheme.tertiary,
+              color: Colors.white,
             ),
-            borderRadius: const BorderRadius.all(
+            borderRadius: BorderRadius.all(
               Radius.circular(20.0),
             ),
           ),
 
-          focusedBorder: OutlineInputBorder(
+          focusedBorder: const OutlineInputBorder(
             borderSide: BorderSide(
-              color: Theme.of(context).colorScheme.tertiary,
+              color: Colors.white,
             ),
-            borderRadius: const BorderRadius.all(
+            borderRadius: BorderRadius.all(
               Radius.circular(20.0),
             ),
           ),
