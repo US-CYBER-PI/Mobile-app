@@ -48,16 +48,16 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   void init() async {
-    final phone = await _secureStorage.read(key: 'phone');
-    final token = await _secureStorage.read(key: 'token');
-    final role = await _secureStorage.read(key: 'role');
-
     final data = SecureStorageSetting.toFromMap(await _secureStorage.readAll());
     if (data.token == null) return;
 
-    if (token != null || token == '') {
+    if (data.token != null || data.token == '') {
+      final dataNow = DateTime.now();
+      if ((dataNow.day - data.dateTime.day) >= 5) {
+        _auth.refreshToken(data.token);
+      }
       emit(
-        Authorized(phone!, RoleEnum.def),
+        Authorized(data.phone!, RoleEnum.def),
       );
     }
 

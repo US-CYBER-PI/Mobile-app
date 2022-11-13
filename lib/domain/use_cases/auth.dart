@@ -125,16 +125,23 @@ class Auth implements AuthRepository {
   @override
   Future<bool> refreshToken(String oldToken) async {
     try {
-      final result = await _dio.post('update/refresh_token');
+      final result = await _dio.post(
+        'auth/update/refresh_token',
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $oldToken',
+          },
+        ),
+      );
 
       if (result.data == null) return false;
       final tokenModel = TokenModel.toFromMap(result.data);
 
       _securedStorage.write(key: 'token', value: tokenModel.token);
       _securedStorage.write(
-        key: 'dateTime',
-        value: tokenModel.dateTime.toUtc().toIso8601String(),
-      );
+          key: 'dateTime',
+          value: tokenModel.dateTime.microsecondsSinceEpoch.abs().toString());
+      _securedStorage.write(key: 'role', value: tokenModel.role.name);
       return true;
     } on DioError catch (error) {
       print(error.error);
