@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:qiwi_mobile_app/views/pay_view.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 class ScanView extends StatefulWidget {
@@ -16,6 +17,8 @@ class ScanView extends StatefulWidget {
 class _ScanViewState extends State<ScanView> {
   Barcode? result;
   QRViewController? controller;
+
+  TextEditingController txtController = TextEditingController();
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
 
   // In order to get hot reload to work we need to pause the camera if the platform
@@ -48,9 +51,14 @@ class _ScanViewState extends State<ScanView> {
             ),
           ),
           Align(
-            alignment: Alignment.bottomCenter,
+              alignment: Alignment.bottomLeft,
+              child: CustomTextField(
+                controller: txtController,
+              )),
+          Align(
+            alignment: Alignment.bottomRight,
             child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 50),
+              padding: const EdgeInsets.symmetric(vertical: 70),
               child: RawMaterialButton(
                 onPressed: () async {
                   await controller?.toggleFlash();
@@ -61,7 +69,7 @@ class _ScanViewState extends State<ScanView> {
                 padding: const EdgeInsets.all(15.0),
                 shape: const CircleBorder(),
                 child: const Icon(
-                  (Ionicons.flash_outline),
+                  (Ionicons.flashlight_outline),
                   color: Colors.white,
                   size: 35.0,
                 ),
