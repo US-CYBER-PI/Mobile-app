@@ -54,7 +54,7 @@ class _PayViewState extends State<PayView> {
                 height: 20,
               ),
               RawMaterialButton(
-                 onPressed: () async {
+                onPressed: () async {
                   responseCodes = await c.updateToken();
                   if (responseCodes == ResponseCodes.sms) {
                     Get.dialog(
@@ -77,17 +77,15 @@ class _PayViewState extends State<PayView> {
                                   controller: controller,
                                   labelText: 'Код из смс',
                                 ),
-                                ObxValue(
-                                  (responseCodes) => Switch(
-                                      value: responseCodes.value,
-                                      onChanged: ((value) {
-                                        Get.back();
-                                      })),
-                                  false.obs,
-                                ),
                                 ElevatedButton(
-                                    onPressed: () {
-                                      c.sendSms(controller.text);
+                                    onPressed: () async {
+                                      ResponseCodes smsResp =await c.sendSms(controller.text);
+                                      if (smsResp == ResponseCodes.good) {
+                                        Get.back();
+                                      } else {
+                                        Get.snackbar('Ошибка',
+                                            'Введите корректные данные');
+                                      }
                                     },
                                     child: Text("Отправить"))
                               ],
