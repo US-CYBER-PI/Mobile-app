@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:qiwi_mobile_app/views/auth/auth/auth_cubit.dart';
 import 'package:qiwi_mobile_app/views/auth/sign_up.dart';
 import 'package:qiwi_mobile_app/views/home.dart';
+import 'package:qiwi_mobile_app/views/widgets/custom_button.dart';
 import 'package:qiwi_mobile_app/views/widgets/text_filed_password.dart';
 import 'package:qiwi_mobile_app/views/widgets/text_filed_phone.dart';
 
@@ -30,7 +31,7 @@ class _SignInState extends State<SignIn> {
                 Get.snackbar('Ошибка', state.error);
               }
               if (state is AuthSucces) {
-                Get.off(HomePage());
+                Get.off(HomePage(phone: '+7 ${_loginController.text}'));
               }
             },
             builder: (context, state) {
@@ -41,31 +42,37 @@ class _SignInState extends State<SignIn> {
                   const Text(
                     'QIWI Mobile',
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 28),
+                    style: TextStyle(
+                      fontSize: 28,
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
                   const Spacer(),
                   TextFieldPhone(_loginController),
                   const SizedBox(height: 20),
                   TextFiledPassword(_passwordController),
                   const SizedBox(height: 20),
-                  ElevatedButton(
-                    onPressed: () {
-                      context.read<AuthCubit>().onSignIn(
-                            _loginController.text,
-                            _passwordController.text,
-                          );
-                    },
-                    child: const Text('Войти в систему'),
+                  CustomButton(
+                    text: 'Войти в систему',
+                    onPressed: () => context.read<AuthCubit>().onSignIn(
+                          _loginController.text,
+                          _passwordController.text,
+                        ),
                   ),
-                  ElevatedButton(
-                    onPressed: () {
-                      Get.to(SignUp());
-                    },
-                    child: const Text('Регистрация в системе'),
+                  SizedBox(height: 10),
+                  CustomButton(
+                    text: 'Регистрация в системе',
+                    onPressed: () => Get.to(SignUp()),
                   ),
                   const Spacer(
                     flex: 3,
                   ),
+                  Text(
+                    '# Нам кибер ПИ #',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: Theme.of(context).colorScheme.tertiary),
+                  )
                 ],
               );
             },

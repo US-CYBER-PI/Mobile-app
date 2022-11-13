@@ -9,7 +9,7 @@ final ls = GetIt.instance;
 Future<void> init() async {
   // Bloc // Cubit
 
-  ls.registerFactory(() => AuthCubit(ls()));
+  ls.registerFactory(() => AuthCubit(ls(), ls()));
 
   // UseCases
 

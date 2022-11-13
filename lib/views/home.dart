@@ -5,6 +5,9 @@ import 'package:qiwi_mobile_app/views/profile_view.dart';
 import 'package:qiwi_mobile_app/views/scan_view.dart';
 
 class HomePage extends StatefulWidget {
+  const HomePage({super.key, required this.phone});
+  final String phone;
+
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -13,11 +16,18 @@ class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.w500);
-  final List<Widget> _children = [
-    const PayView(),
-    const ScanView(),
-    const ProfileView(),
-  ];
+  final List<Widget> _children = [];
+
+  @override
+  void initState() {
+    _children.addAll([
+      const PayView(),
+      const ScanView(),
+      ProfileView(phone: widget.phone),
+    ]);
+
+    super.initState();
+  }
 
   void onTabTapped(int index) {
     setState(() {

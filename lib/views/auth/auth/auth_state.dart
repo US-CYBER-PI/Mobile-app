@@ -12,3 +12,9 @@ class AuthError extends AuthState {
 }
 
 class AuthSucces extends AuthState {}
+
+class Authorized extends AuthState {
+  final String phone;
+
+  Authorized(this.phone);
+}

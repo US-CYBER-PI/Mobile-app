@@ -18,6 +18,7 @@ class TextFieldPhone extends StatelessWidget {
       inputFormatters: [
         MaskedInputFormatter('(###) ###-##-##'),
       ],
+      style: TextStyle(fontSize: 18),
       decoration: InputDecoration(
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
@@ -29,7 +30,8 @@ class TextFieldPhone extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Text(
             "+7",
-            style: TextStyle(color: Theme.of(context).colorScheme.tertiary),
+            style: TextStyle(
+                color: Theme.of(context).colorScheme.tertiary, fontSize: 18),
           ),
         ),
         prefixIconConstraints: const BoxConstraints(minWidth: 0, minHeight: 0),

@@ -38,6 +38,7 @@ class Auth implements AuthRepository {
 
         if (result.statusCode == 200) {
           _securedStorage.write(key: 'token', value: result.data['token']);
+          _securedStorage.write(key: 'phone', value: '+7 $login');
         }
       } else {
         return const Left('Регистрация провалилась');
@@ -56,22 +57,24 @@ class Auth implements AuthRepository {
   @override
   Future<Either<String, bool>> signIn(String login, String password) async {
     try {
-      login = login
-          .replaceAll('(', '')
-          .replaceAll(')', '')
-          .replaceAll(' ', '')
-          .replaceAll('-', '');
       var fromData = FormData.fromMap(
         AuthModel(login: login, password: password).toMap(),
       );
       var result = await _dio.post(
         'auth/refresh_token',
-        data: FormData.fromMap(
-            AuthModel(login: login, password: password).toMap()),
+        data: FormData.fromMap(AuthModel(
+                login: login
+                    .replaceAll('(', '')
+                    .replaceAll(')', '')
+                    .replaceAll(' ', '')
+                    .replaceAll('-', ''),
+                password: password)
+            .toMap()),
       );
 
       if (result.statusCode == 200) {
         _securedStorage.write(key: 'token', value: result.data['token']);
+        _securedStorage.write(key: 'phone', value: '+7 $login');
       }
 
       return const Right(true);

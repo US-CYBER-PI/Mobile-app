@@ -18,26 +18,32 @@ class _TextFiledPasswordState extends State<TextFiledPassword> {
     return TextFormField(
       controller: widget.passwordController,
       obscureText: isCheck,
+      style: TextStyle(fontSize: 18),
       decoration: InputDecoration(
         isDense: true,
         prefixIcon: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
           child: Icon(
             Icons.lock_outline,
-            size: 14,
+            size: 22,
             color: Theme.of(context).colorScheme.tertiary,
           ),
         ),
         prefixIconConstraints: const BoxConstraints(minWidth: 0, minHeight: 0),
-        suffixIcon: InkWell(
-          onTap: () {
-            setState(() {
-              isCheck = !isCheck;
-            });
-          },
-          child: Icon(
-            isCheck ? Icons.visibility_off : Icons.visibility,
-            color: Theme.of(context).colorScheme.tertiary,
+        suffixIcon: Padding(
+          padding: const EdgeInsets.all(4.0),
+          child: InkWell(
+            borderRadius: BorderRadius.circular(10),
+            onTap: () {
+              setState(() {
+                isCheck = !isCheck;
+              });
+            },
+            child: Icon(
+              isCheck ? Icons.visibility_off : Icons.visibility,
+              color: Theme.of(context).colorScheme.tertiary,
+              size: 24,
+            ),
           ),
         ),
         focusedBorder: OutlineInputBorder(

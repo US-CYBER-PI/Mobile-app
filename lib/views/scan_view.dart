@@ -39,7 +39,8 @@ class _ScanViewState extends State<ScanView> {
           Align(
             alignment: Alignment.topCenter,
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 50),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 25.0, vertical: 50),
               child: Text(
                 'Наветите камеру на QR код',
                 style: Theme.of(context).textTheme.headline4,
@@ -61,6 +62,7 @@ class _ScanViewState extends State<ScanView> {
                 shape: const CircleBorder(),
                 child: const Icon(
                   (Ionicons.flash_outline),
+                  color: Colors.white,
                   size: 35.0,
                 ),
               ),

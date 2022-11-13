@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:qiwi_mobile_app/locator_service.dart';
 import 'package:qiwi_mobile_app/views/auth/auth/auth_cubit.dart';
 import 'package:qiwi_mobile_app/views/home.dart';
+import 'package:qiwi_mobile_app/views/widgets/custom_button.dart';
 import 'package:qiwi_mobile_app/views/widgets/text_filed_password.dart';
 import 'package:qiwi_mobile_app/views/widgets/text_filed_phone.dart';
 
@@ -34,7 +35,7 @@ class _SignUpState extends State<SignUp> {
                 Get.showSnackbar(GetSnackBar(title: state.error));
               }
               if (state is AuthSucces) {
-                Get.off(HomePage());
+                Get.off(HomePage(phone: '+7 ${_loginController.text}'));
               }
             },
             builder: (context, state) {
@@ -52,14 +53,15 @@ class _SignUpState extends State<SignUp> {
                   const SizedBox(height: 20),
                   TextFiledPassword(_passwordController),
                   const SizedBox(height: 20),
-                  ElevatedButton(
-                      onPressed: () {
-                        context.read<AuthCubit>().onSignUp(
-                              _loginController.text,
-                              _passwordController.text,
-                            );
-                      },
-                      child: const Text('Регистрация')),
+                  CustomButton(
+                    text: 'Регистрация',
+                    onPressed: () {
+                      context.read<AuthCubit>().onSignUp(
+                            _loginController.text,
+                            _passwordController.text,
+                          );
+                    },
+                  ),
                   const Spacer(
                     flex: 3,
                   ),
@@ -81,3 +83,4 @@ class _SignUpState extends State<SignUp> {
     );
   }
 }
+
