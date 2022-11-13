@@ -20,6 +20,7 @@ class Auth implements AuthRepository {
           .replaceAll('(', '')
           .replaceAll(')', '')
           .replaceAll(' ', '')
+          .replaceAll('+', '')
           .replaceAll('-', '');
       var fromData = FormData.fromMap(
         AuthModel(login: login, password: password).toMap(),

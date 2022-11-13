@@ -25,83 +25,85 @@ class ProfileView extends StatelessWidget {
           }
         },
         builder: (context, state) {
-          return Padding(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              children: [
-                Card(
-                  elevation: 5,
-                  child: Container(
-                    width: Get.width,
-                    padding: const EdgeInsets.all(15),
-                    child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const CircleAvatar(
-                            radius: 36,
-                            backgroundImage: NetworkImage(
-                              'https://source.unsplash.com/72x72/?portrait', //TODO get image from profile
-                            ),
-                          ),
-                          SizedBox(height: 10),
-                          Text(
-                            'Номер QIWI кошелька',
-                            style: TextStyle(fontSize: 18),
-                          ),
-                          SizedBox(height: 10),
-                          Text(
-                            phone,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.bold),
-                          ),
-                        ]),
-                  ),
-                ),
-                Card(
-                  color: Theme.of(context).colorScheme.secondary,
-                  elevation: 5,
-                  child: Container(
-                    width: Get.width,
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 15, horizontal: 10),
-                    child: Column(
-                      children: [
-                        Row(
+          return SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                children: [
+                  Card(
+                    elevation: 5,
+                    child: Container(
+                      width: Get.width,
+                      padding: const EdgeInsets.all(15),
+                      child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
-                            Text(
-                              'Состояние кошелька',
-                              style: TextStyle(
-                                fontSize: 20,
-                                color: Colors.white,
+                          children: [
+                            const CircleAvatar(
+                              radius: 36,
+                              backgroundImage: NetworkImage(
+                                'https://source.unsplash.com/72x72/?portrait', //TODO get image from profile
                               ),
                             ),
-                            SizedBox(
-                              width: 10,
+                            SizedBox(height: 10),
+                            Text(
+                              'Номер QIWI кошелька',
+                              style: TextStyle(fontSize: 18),
                             ),
-                            Icon(
-                              Icons.wallet,
-                              size: 30,
-                              color: Colors.white,
+                            SizedBox(height: 10),
+                            Text(
+                              phone,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.bold),
                             ),
-                          ],
-                        ),
-                        SizedBox(height: 5),
-                        Text(
-                          "10000 P",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 22,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ],
+                          ]),
                     ),
                   ),
-                )
-              ],
+                  Card(
+                    color: Theme.of(context).colorScheme.secondary,
+                    elevation: 5,
+                    child: Container(
+                      width: Get.width,
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 15, horizontal: 10),
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const [
+                              Text(
+                                'Состояние кошелька',
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Icon(
+                                Icons.wallet,
+                                size: 30,
+                                color: Colors.white,
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 5),
+                          Text(
+                            "10000 P",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 22,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
+                ],
+              ),
             ),
           );
         },

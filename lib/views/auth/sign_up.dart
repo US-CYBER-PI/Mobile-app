@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:qiwi_mobile_app/locator_service.dart';
 import 'package:qiwi_mobile_app/views/auth/auth/auth_cubit.dart';
 import 'package:qiwi_mobile_app/views/home.dart';
 import 'package:qiwi_mobile_app/views/widgets/custom_button.dart';
@@ -35,7 +32,7 @@ class _SignUpState extends State<SignUp> {
                 Get.showSnackbar(GetSnackBar(title: state.error));
               }
               if (state is AuthSucces) {
-                Get.off(HomePage(phone: '+7 ${_loginController.text}'));
+                Get.off(() => HomePage(phone: '+7 ${_loginController.text}'));
               }
             },
             builder: (context, state) {

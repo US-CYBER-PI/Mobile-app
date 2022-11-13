@@ -2,6 +2,7 @@ import 'package:barcode_widget/barcode_widget.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:qiwi_mobile_app/controllers/pay_view_controller.dart';
@@ -18,7 +19,8 @@ class PayView extends StatefulWidget {
 
 class _PayViewState extends State<PayView> {
   ResponseCodes responseCodes = ResponseCodes.error;
-  final c = Get.put(PayViewController(ls<Dio>));
+  final c = Get.put(PayViewController());
+  final securedStorage = ls<FlutterSecureStorage>;
 
   @override
   Widget build(BuildContext context) {
