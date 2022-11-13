@@ -32,7 +32,7 @@ class _SignUpState extends State<SignUp> {
                 Get.showSnackbar(GetSnackBar(title: state.error));
               }
               if (state is AuthSucces) {
-                Get.off(()=>HomePage(phone: '+7 ${_loginController.text}'));
+                Get.off(() => HomePage(phone: '+7 ${_loginController.text}'));
               }
             },
             builder: (context, state) {
@@ -43,7 +43,10 @@ class _SignUpState extends State<SignUp> {
                   const Text(
                     'Регистрация QIWI Mobile',
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 28),
+                    style: TextStyle(
+                      fontSize: 28,
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
                   const Spacer(),
                   TextFieldPhone(_loginController),
@@ -80,4 +83,3 @@ class _SignUpState extends State<SignUp> {
     );
   }
 }
-

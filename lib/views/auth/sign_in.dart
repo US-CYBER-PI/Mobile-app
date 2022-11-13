@@ -31,7 +31,7 @@ class _SignInState extends State<SignIn> {
                 Get.snackbar('Ошибка', state.error);
               }
               if (state is AuthSucces) {
-                Get.off(()=> HomePage(phone: '+7 ${_loginController.text}'));
+                Get.off(() => HomePage(phone: '+7 ${_loginController.text}'));
               }
             },
             builder: (context, state) {
@@ -59,12 +59,12 @@ class _SignInState extends State<SignIn> {
                           _passwordController.text,
                         ),
                   ),
-                  ElevatedButton(
+                  const SizedBox(height: 10),
+                  CustomButton(
+                    text: 'Регистрация в системе',
                     onPressed: () {
-                         Get.off(
-                          () => SignUp());
+                      Get.to(() => SignUp());
                     },
-                    child: const Text('Регистрация в системе'),
                   ),
                   const Spacer(
                     flex: 3,
