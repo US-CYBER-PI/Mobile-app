@@ -1,5 +1,4 @@
 import 'package:barcode_widget/barcode_widget.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -18,6 +17,7 @@ class PayView extends StatefulWidget {
 }
 
 class _PayViewState extends State<PayView> {
+  TextEditingController controller = TextEditingController();
   ResponseCodes responseCodes = ResponseCodes.error;
   final c = Get.put(PayViewController());
   final securedStorage = ls<FlutterSecureStorage>;
@@ -53,83 +53,127 @@ class _PayViewState extends State<PayView> {
               const SizedBox(
                 height: 20,
               ),
-              OutlinedButton.icon(
-                  onPressed: () async {
-                    responseCodes = await c.updateToken();
-                    if (responseCodes == ResponseCodes.sms) {
-                      Get.dialog(
-                        Container(
-                          height: 300,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              FlutterLogo(
-                                size: 150,
-                              ),
-                              Text(
-                                "This is a Custom Dialog",
-                                style: TextStyle(fontSize: 20),
-                              ),
-                              ElevatedButton(
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                  child: Text("Close"))
-                            ],
+              RawMaterialButton(
+                 onPressed: () async {
+                  responseCodes = await c.updateToken();
+                  if (responseCodes == ResponseCodes.sms) {
+                    Get.dialog(
+                      Container(
+                        height: 300,
+                        child: Center(
+                          child: ReusableCard(
+                            color: Theme.of(context).colorScheme.background,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    "Введите код из смс",
+                                    style: TextStyle(fontSize: 20),
+                                  ),
+                                ),
+                                CustomTextField(
+                                  controller: controller,
+                                  labelText: 'Код из смс',
+                                ),
+                                ObxValue(
+                                  (responseCodes) => Switch(
+                                      value: responseCodes.value,
+                                      onChanged: ((value) {
+                                        Get.back();
+                                      })),
+                                  false.obs,
+                                ),
+                                ElevatedButton(
+                                    onPressed: () {
+                                      c.sendSms(controller.text);
+                                    },
+                                    child: Text("Отправить"))
+                              ],
+                            ),
                           ),
                         ),
-                      );
-                    } else {
-                      Get.defaultDialog(
-                        title: "Alert!",
-                        content: Text("Error"),
-                      );
-                    }
-                  },
-                  icon: Icon(Ionicons.add_circle),
-                  label: Text('Обновить')),
-              TextField(
-                decoration: InputDecoration(
-                  labelText: "Введите сумму", //TODO localization
-                  labelStyle: Theme.of(context).textTheme.button,
-
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      width: 10.0,
-                      color: Theme.of(context).colorScheme.tertiary,
-                    ),
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(20.0),
-                    ),
-                  ),
-
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Theme.of(context).colorScheme.tertiary,
-                    ),
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(20.0),
-                    ),
-                  ),
-
-                  errorBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      width: 10.0,
-                      color: Theme.of(context).colorScheme.error,
-                    ),
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(20.0),
-                    ),
-                  ),
+                      ),
+                    );
+                  } else if (responseCodes == ResponseCodes.error) {
+                    Get.defaultDialog(
+                      title: "Alert!",
+                      content: Text("Error"),
+                    );
+                  }
+                },
+                elevation: 2.0,
+                fillColor: Theme.of(context).colorScheme.secondary,
+                padding: const EdgeInsets.all(15.0),
+                shape: const CircleBorder(),
+                child: const Icon(
+                  (Ionicons.reload),
+                  color: Colors.white,
+                  size: 35.0,
                 ),
-                keyboardType: TextInputType.number,
-                inputFormatters: <TextInputFormatter>[
-                  FilteringTextInputFormatter.digitsOnly
-                ], // Only numbers can be entered
               ),
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class CustomTextField extends StatelessWidget {
+  const CustomTextField({
+    Key? key,
+    required this.controller,
+    this.labelText,
+  }) : super(key: key);
+
+  final TextEditingController controller;
+  final String? labelText;
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Colors.transparent,
+      child: TextField(
+        controller: controller,
+        decoration: InputDecoration(
+          labelText: labelText ?? "Введите сумму", //TODO localization
+          labelStyle: Theme.of(context).textTheme.button,
+
+          border: OutlineInputBorder(
+            borderSide: BorderSide(
+              width: 10.0,
+              color: Theme.of(context).colorScheme.tertiary,
+            ),
+            borderRadius: const BorderRadius.all(
+              Radius.circular(20.0),
+            ),
+          ),
+
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: Theme.of(context).colorScheme.tertiary,
+            ),
+            borderRadius: const BorderRadius.all(
+              Radius.circular(20.0),
+            ),
+          ),
+
+          errorBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              width: 10.0,
+              color: Theme.of(context).colorScheme.error,
+            ),
+            borderRadius: const BorderRadius.all(
+              Radius.circular(20.0),
+            ),
+          ),
+        ),
+        keyboardType: TextInputType.number,
+        inputFormatters: <TextInputFormatter>[
+          FilteringTextInputFormatter.digitsOnly
+        ], // Only numbers can be entered
       ),
     );
   }

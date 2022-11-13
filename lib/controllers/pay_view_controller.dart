@@ -23,23 +23,45 @@ class PayViewController extends GetxController {
 
       auth_token = await _dio.post('https://mptdeal.ru/api/v1/auth/token',
           // data: formData,
-          options: d.Options(headers: {'Authorization': 'Bearer $token', 'Access': 'qr_create',}));
+          options: d.Options(headers: {
+            'Authorization': 'Bearer $token',
+            'Access': 'qr_create',
+          }));
     } on d.DioError catch (e) {
       return ResponseCodes.error;
     }
     try {
       response = await _dio.post('https://mptdeal.ru/api/v1/user/pay_token',
-          options: d.Options(headers: {'Authorization': 'Bearer ${auth_token?.data['token']}'}));
+          options: d.Options(headers: {
+            'Authorization': 'Bearer ${auth_token?.data['token']}'
+          }));
 
-      payToken = payTokenFromJson(response?.data).token as RxString;
+      payToken.value =response!.data["token"].toString();
       return ResponseCodes.good;
       // ResponseApi.ok(message: '', data: response.data);
     } on d.DioError catch (e) {
-      if (response?.statusCode == 425) {
+      if (e.response?.statusCode == 425) {
         return ResponseCodes.sms;
-      } 
-        return ResponseCodes.error;
-      
+      }
+      return ResponseCodes.error;
+    }
+  }
+
+  Future<ResponseCodes> sendSms(String sms) async {
+    try {
+      var formData = d.FormData.fromMap({
+        'code': sms,
+      });
+
+      auth_token = await _dio.post(
+        'https://mptdeal.ru/api/v1/user/phone/sms',
+        data: formData,
+        options: d.Options(
+            headers: {'Authorization': 'Bearer ${auth_token?.data['token']}'}),
+      );
+      return updateToken();
+    } on d.DioError catch (e) {
+      return ResponseCodes.error;
     }
   }
 }

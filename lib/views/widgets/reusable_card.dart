@@ -9,18 +9,21 @@ class ReusableCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-        child: Ink(
-          padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 2.0),
-          // margin: EdgeInsets.all(5.0),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10.0),
-            color: color,
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: onTap,
+          child: Ink(
+            padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 2.0),
+            // margin: EdgeInsets.all(5.0),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10.0),
+              color: color,
+            ),
+            child: child,
           ),
-          child: child,
-        ),
-      
+        
+      ),
     );
   }
 }
