@@ -29,7 +29,7 @@ class PayViewController extends GetxController {
     }
     try {
       response = await _dio.post('https://mptdeal.ru/api/v1/user/pay_token',
-          options: d.Options(headers: {'Authorization': 'Bearer $auth_token'}));
+          options: d.Options(headers: {'Authorization': 'Bearer ${auth_token?.data['token']}'}));
 
       payToken = payTokenFromJson(response?.data).token as RxString;
       return ResponseCodes.good;
@@ -37,9 +37,9 @@ class PayViewController extends GetxController {
     } on d.DioError catch (e) {
       if (response?.statusCode == 425) {
         return ResponseCodes.sms;
-      } else {
+      } 
         return ResponseCodes.error;
-      }
+      
     }
   }
 }
