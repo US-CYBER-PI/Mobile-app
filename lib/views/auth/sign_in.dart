@@ -31,7 +31,7 @@ class _SignInState extends State<SignIn> {
                 Get.snackbar('Ошибка', state.error);
               }
               if (state is AuthSucces) {
-                Get.off(() => HomePage(phone: '+7 ${_loginController.text}'));
+                Get.off(() => HomePage(phone: '+7 ${_loginController.text}',roleEnum: state.role));
               }
             },
             builder: (context, state) {

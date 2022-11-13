@@ -14,7 +14,7 @@ class Auth implements AuthRepository {
   Auth(this._dio, this._securedStorage);
 
   @override
-  Future<Either<String, bool>> signUp(String login, String password) async {
+  Future<Either<String, RoleEnum>> signUp(String login, String password) async {
     try {
       login = login
           .replaceAll('(', '')
@@ -30,22 +30,21 @@ class Auth implements AuthRepository {
         data: fromData,
       );
 
-      if (result.statusCode == 200) {
-        result = await _dio.post(
-          'auth/refresh_token',
-          data: FormData.fromMap(
-              AuthModel(login: login, password: password).toMap()),
-        );
+      final tokenModel = TokenModel.toFromMap(result.data);
 
-        if (result.statusCode == 200) {
-          _securedStorage.write(key: 'token', value: result.data['token']);
-          _securedStorage.write(key: 'phone', value: login);
-        }
+      if (result.statusCode == 200) {
+        _securedStorage.write(key: 'token', value: tokenModel.token);
+        print(tokenModel.dateTime.toUtc().toIso8601String());
+        _securedStorage.write(
+            key: 'dateTime',
+            value: tokenModel.dateTime.microsecondsSinceEpoch.abs().toString());
+        _securedStorage.write(key: 'phone', value: login);
+        _securedStorage.write(key: 'role', value: tokenModel.role.name);
       } else {
         return const Left('Регистрация провалилась');
       }
 
-      return const Right(true);
+      return Right(tokenModel.role);
     } on DioError catch (error) {
       if (error.response!.statusCode == 422) {
         return const Left('Такой телефон уже зарегестрирован');
@@ -56,29 +55,37 @@ class Auth implements AuthRepository {
   }
 
   @override
-  Future<Either<String, bool>> signIn(String login, String password) async {
+  Future<Either<String, RoleEnum>> signIn(String login, String password) async {
     try {
       var fromData = FormData.fromMap(
         AuthModel(login: login, password: password).toMap(),
       );
       var result = await _dio.post(
         'auth/refresh_token',
-        data: FormData.fromMap(AuthModel(
-                login: login
-                    .replaceAll('(', '')
-                    .replaceAll(')', '')
-                    .replaceAll(' ', '')
-                    .replaceAll('-', ''),
-                password: password)
-            .toMap()),
+        data: FormData.fromMap(
+          AuthModel(
+                  login: login
+                      .replaceAll('(', '')
+                      .replaceAll(')', '')
+                      .replaceAll(' ', '')
+                      .replaceAll('-', ''),
+                  password: password)
+              .toMap(),
+        ),
       );
 
+      final tokenModel = TokenModel.toFromMap(result.data);
+
       if (result.statusCode == 200) {
-        _securedStorage.write(key: 'token', value: result.data['token']);
+        _securedStorage.write(key: 'token', value: tokenModel.token);
+        _securedStorage.write(
+            key: 'dateTime',
+            value: tokenModel.dateTime.microsecondsSinceEpoch.abs().toString());
+        _securedStorage.write(key: 'role', value: tokenModel.role.name);
         _securedStorage.write(key: 'phone', value: login);
       }
 
-      return const Right(true);
+      return Right(tokenModel.role);
     } on DioError catch (error) {
       if (error.response == null) {
         return const Left('Ошибка');
@@ -109,6 +116,26 @@ class Auth implements AuthRepository {
       return true;
       // }
       // return false;
+    } on DioError catch (error) {
+      print(error.error);
+      return false;
+    }
+  }
+
+  @override
+  Future<bool> refreshToken(String oldToken) async {
+    try {
+      final result = await _dio.post('update/refresh_token');
+
+      if (result.data == null) return false;
+      final tokenModel = TokenModel.toFromMap(result.data);
+
+      _securedStorage.write(key: 'token', value: tokenModel.token);
+      _securedStorage.write(
+        key: 'dateTime',
+        value: tokenModel.dateTime.toUtc().toIso8601String(),
+      );
+      return true;
     } on DioError catch (error) {
       print(error.error);
       return false;

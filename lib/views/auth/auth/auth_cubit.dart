@@ -2,6 +2,8 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:meta/meta.dart';
+import 'package:qiwi_mobile_app/domain/model/secure_storage_setting.dart';
+import 'package:qiwi_mobile_app/domain/model/token_model.dart';
 import 'package:qiwi_mobile_app/domain/use_cases/auth.dart';
 import 'package:qiwi_mobile_app/locator_service.dart';
 import 'package:qiwi_mobile_app/views/auth/sign_in.dart';
@@ -22,14 +24,14 @@ class AuthCubit extends Cubit<AuthState> {
         emit(AuthError(error));
       },
       (r) {
-        emit(AuthSucces());
+        emit(AuthSucces(r));
       },
     );
   }
 
   void onLogout() async {
     final result = await _auth.logout();
-    result ? emit(AuthSucces()) : emit(AuthError('Ошибка'));
+    result ? emit(AuthSucces(RoleEnum.def)) : emit(AuthError('Ошибка'));
   }
 
   void onSignIn(String login, String password) async {
@@ -40,7 +42,7 @@ class AuthCubit extends Cubit<AuthState> {
         emit(AuthError(error));
       },
       (r) {
-        emit(AuthSucces());
+        emit(AuthSucces(r));
       },
     );
   }
@@ -48,8 +50,17 @@ class AuthCubit extends Cubit<AuthState> {
   void init() async {
     final phone = await _secureStorage.read(key: 'phone');
     final token = await _secureStorage.read(key: 'token');
-    if (token != null) {
-      emit(Authorized(phone!));
+    final role = await _secureStorage.read(key: 'role');
+
+    final data = SecureStorageSetting.toFromMap(await _secureStorage.readAll());
+    if (data.token == null) return;
+
+    if (token != null || token == '') {
+      emit(
+        Authorized(phone!, RoleEnum.def),
+      );
     }
+
+    ///todo сравнение даты если то окончания токена остается 5 дней создаем новый токен
   }
 }
