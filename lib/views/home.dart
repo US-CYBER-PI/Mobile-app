@@ -23,9 +23,11 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     _children.addAll([
-      const PayView(),
-      const ScanView(),
-      ProfileView(phone: widget.phone),
+      widget.roleEnum == RoleEnum.merchant ? const ScanView() : const PayView(),
+      ProfileView(
+        phone: widget.phone,
+        roleEnum: widget.roleEnum,
+      ),
     ]);
 
     super.initState();
@@ -49,14 +51,15 @@ class _HomePageState extends State<HomePage> {
         onTap: onTabTapped,
         // ignore: prefer_const_literals_to_create_immutables
         items: [
-          const BottomNavigationBarItem(
-            icon: Icon(Icons.wallet),
-            label: 'Главная',
-          ),
-          const BottomNavigationBarItem(
-            icon: Icon(Icons.camera),
-            label: 'Оплата',
-          ),
+          widget.roleEnum == RoleEnum.merchant
+              ? const BottomNavigationBarItem(
+                  icon: Icon(Icons.camera),
+                  label: 'Оплата',
+                )
+              : const BottomNavigationBarItem(
+                  icon: Icon(Icons.wallet),
+                  label: 'Главная',
+                ),
           const BottomNavigationBarItem(
             icon: Icon(Icons.person),
             label: 'Профиль',

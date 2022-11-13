@@ -57,9 +57,8 @@ class AuthCubit extends Cubit<AuthState> {
         _auth.refreshToken(data.token);
       }
       emit(
-        Authorized(data.phone!, RoleEnum.def),
+        Authorized(data.phone, data.role),
       );
     }
-
   }
 }

@@ -16,18 +16,18 @@ class TokenModel {
         token: json['token'],
         dateTime:
             DateTime.fromMillisecondsSinceEpoch(json['expiredDate'] * 1000),
-        // dateTime: DateFormat("dd.MM.yyyy").parse(json['expiredDate'].toString()),
         role: RoleEnum.values
-            .firstWhere((element) => element.name == json['role']));
+            .firstWhere((element) => element.key == json['role']));
   }
 }
 
 enum RoleEnum {
-  merchant(name: 'merchant'),
-  user(name: 'user'),
-  def(name:'');
+  merchant(key: 'merchant', name: 'Продавец'),
+  user(key: 'user', name: 'Клиент'),
+  def(key: '', name: '');
 
-  const RoleEnum({required this.name});
+  const RoleEnum({required this.name, required this.key});
 
+  final String key;
   final String name;
 }

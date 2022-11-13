@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
+import 'package:qiwi_mobile_app/domain/model/token_model.dart';
 import 'package:qiwi_mobile_app/locator_service.dart';
 import 'package:qiwi_mobile_app/views/auth/auth/auth_cubit.dart';
 import 'package:qiwi_mobile_app/views/auth/sign_in.dart';
 
 class ProfileView extends StatelessWidget {
-  ProfileView({Key? key, required this.phone}) : super(key: key);
+  ProfileView({Key? key, required this.phone, required this.roleEnum}) : super(key: key);
   final String phone;
+  final RoleEnum roleEnum;
 
   @override
   Widget build(BuildContext context) {
@@ -43,6 +45,11 @@ class ProfileView extends StatelessWidget {
                               backgroundImage: NetworkImage(
                                 'https://source.unsplash.com/72x72/?portrait', //TODO get image from profile
                               ),
+                            ),
+                            SizedBox(height: 10),
+                            Text(
+                              roleEnum.name,
+                              style: TextStyle(fontSize: 18),
                             ),
                             SizedBox(height: 10),
                             Text(
