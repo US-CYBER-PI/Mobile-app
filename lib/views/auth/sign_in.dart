@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:qiwi_mobile_app/views/auth/auth/auth_cubit.dart';
+import 'package:qiwi_mobile_app/views/auth/sign_up.dart';
 import 'package:qiwi_mobile_app/views/home.dart';
 import 'package:qiwi_mobile_app/views/widgets/text_filed_password.dart';
 import 'package:qiwi_mobile_app/views/widgets/text_filed_phone.dart';
@@ -58,7 +59,7 @@ class _SignInState extends State<SignIn> {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      Get.to(Get.off(()=> HomePage()));
+                      Get.to(()=> SignUp());
                     },
                     child: const Text('Регистрация в системе'),
                   ),

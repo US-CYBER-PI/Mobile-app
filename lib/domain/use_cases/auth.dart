@@ -77,8 +77,14 @@ class Auth implements AuthRepository {
 
       return const Right(true);
     } on DioError catch (error) {
+      if (error.response == null) {
+        return const Left('Ошибка');
+      }
       if (error.response!.statusCode == 422) {
         return const Left('Такой телефон уже зарегестрирован');
+      }
+      if (error.response!.statusCode == 400) {
+        return const Left('Некорректные данные');
       }
       print(error);
       return Left(error.message);
