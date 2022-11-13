@@ -15,7 +15,7 @@ class AuthCubit extends Cubit<AuthState> {
   final FlutterSecureStorage _secureStorage;
 
   void onSignUp(String login, String password) async {
-    final result = await _auth.signUp('7$login', password);
+    final result = await _auth.signUp('7 $login', password);
 
     result.fold(
       (error) {

@@ -39,7 +39,7 @@ class Auth implements AuthRepository {
 
         if (result.statusCode == 200) {
           _securedStorage.write(key: 'token', value: result.data['token']);
-          _securedStorage.write(key: 'phone', value: '+7 $login');
+          _securedStorage.write(key: 'phone', value: login);
         }
       } else {
         return const Left('Регистрация провалилась');
@@ -75,7 +75,7 @@ class Auth implements AuthRepository {
 
       if (result.statusCode == 200) {
         _securedStorage.write(key: 'token', value: result.data['token']);
-        _securedStorage.write(key: 'phone', value: '+7 $login');
+        _securedStorage.write(key: 'phone', value: login);
       }
 
       return const Right(true);
