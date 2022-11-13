@@ -1,12 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:qiwi_mobile_app/domain/model/token_model.dart';
 import 'package:qiwi_mobile_app/views/pay_view.dart';
 import 'package:qiwi_mobile_app/views/profile_view.dart';
 import 'package:qiwi_mobile_app/views/scan_view.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key, required this.phone});
+  const HomePage({super.key, required this.phone, required this.roleEnum});
   final String phone;
+  final RoleEnum roleEnum;
 
   @override
   _HomePageState createState() => _HomePageState();

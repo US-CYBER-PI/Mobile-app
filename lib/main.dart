@@ -56,7 +56,7 @@ class App extends StatelessWidget {
         home: BlocBuilder<AuthCubit, AuthState>(
           builder: (context, state) {
             if (state is Authorized) {
-              return HomePage(phone: state.phone);
+              return HomePage(phone: state.phone, roleEnum: state.role);
             }
             return SignIn();
           },

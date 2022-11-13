@@ -11,10 +11,15 @@ class AuthError extends AuthState {
   AuthError(this.error);
 }
 
-class AuthSucces extends AuthState {}
+class AuthSucces extends AuthState {
+  final RoleEnum role;
+
+  AuthSucces(this.role);
+}
 
 class Authorized extends AuthState {
   final String phone;
+  final RoleEnum role;
 
-  Authorized(this.phone);
+  Authorized(this.phone, this.role);
 }

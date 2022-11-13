@@ -21,9 +21,9 @@ Future<void> init() async {
     () => Dio(
       BaseOptions(
         baseUrl: 'https://mptdeal.ru/api/v1/',
-        connectTimeout: 1500,
-        sendTimeout: 1500,
-        receiveTimeout: 1500,
+        connectTimeout: 3500,
+        sendTimeout: 3500,
+        receiveTimeout: 3500,
       ),
     ),
   );

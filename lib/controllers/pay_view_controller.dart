@@ -2,7 +2,7 @@ import 'package:dio/dio.dart' as d;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:qiwi_mobile_app/locator_service.dart';
-import 'package:qiwi_mobile_app/models/pay_token.dart';
+import 'package:qiwi_mobile_app/domain/model/pay_token.dart';
 
 enum ResponseCodes { error, sms, good }
 
