@@ -42,7 +42,6 @@ class App extends StatelessWidget {
             ),
           ),
         ),
-        themeMode: ThemeMode.light,
         darkTheme: ThemeData.dark().copyWith(
           textSelectionTheme: const TextSelectionThemeData(
               cursorColor: ColorsCustom.tertiaryDark),

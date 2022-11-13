@@ -32,7 +32,7 @@ class _SignUpState extends State<SignUp> {
                 Get.showSnackbar(GetSnackBar(title: state.error));
               }
               if (state is AuthSucces) {
-                Get.off(() => HomePage(phone: '+7 ${_loginController.text}'));
+                Get.off(()=>HomePage(phone: '+7 ${_loginController.text}'));
               }
             },
             builder: (context, state) {

@@ -62,7 +62,7 @@ class _SignInState extends State<SignIn> {
                   ElevatedButton(
                     onPressed: () {
                          Get.off(
-                          () => HomePage(phone: '+7 ${_loginController.text}'));
+                          () => SignUp());
                     },
                     child: const Text('Регистрация в системе'),
                   ),
